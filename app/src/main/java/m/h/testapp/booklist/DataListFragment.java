@@ -1,4 +1,4 @@
-package m.h.testapp;
+package m.h.testapp.booklist;
 
 
 import android.app.ProgressDialog;
@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import m.h.testapp.R;
 
 
 /**
@@ -41,10 +43,5 @@ public class DataListFragment extends Fragment {
 
     return v;
     }
-
-
-
-
-
 
 }

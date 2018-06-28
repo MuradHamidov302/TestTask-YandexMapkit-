@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
-    tools:context=".LoginActivity"
+    tools:context=".login.LoginActivity"
     tools:layout_editor_absoluteY="81dp">
 
 
@@ -39,7 +39,7 @@
     <View
         android:id="@+id/view3"
         android:layout_width="0dp"
-        android:layout_height="3dp"
+        android:layout_height="2dp"
         android:background="@color/colorGrren"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -74,6 +74,7 @@
         android:padding="10dp"
         android:textColor="@android:color/background_dark"
         android:textSize="24sp"
+        android:translationZ="2dp"
         app:layout_constraintBottom_toTopOf="@+id/view"
         app:layout_constraintEnd_toStartOf="@+id/imgbtnphone"
         app:layout_constraintStart_toStartOf="parent" />
@@ -86,6 +87,7 @@
         android:background="@drawable/btngreenbckr"
         android:src="@drawable/ic_next"
         android:text="Button"
+        android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/etphone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etphone" />
@@ -94,7 +96,7 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/colorGray"
         app:layout_constraintBottom_toTopOf="@+id/imgbtnfacebook"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,13 +105,13 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/comfortaa_bold"
         android:text="Пропустить"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -120,9 +122,10 @@
         android:id="@+id/imgbtnfacebook"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/inputbckr"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/btnwhitebckr"
+        android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgbtnempty"
         app:srcCompat="@drawable/ic_facebook" />
@@ -142,10 +145,11 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"
-        android:background="@drawable/inputbckr"
+        android:background="@drawable/btnwhitebckr"
+        android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/imgbtnfacebook"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_facebook" />
+        app:srcCompat="@drawable/ic_list" />
 
     <View
         android:id="@+id/view2"

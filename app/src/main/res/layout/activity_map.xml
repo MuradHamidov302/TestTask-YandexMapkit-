@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapActivity">
+    tools:context=".map.MapActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/mActionBarToolbar1"
@@ -50,9 +50,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mActionBarToolbar1"
-        app:layout_constraintVertical_bias="0.0">
-
-    </com.yandex.mapkit.mapview.MapView>
+        app:layout_constraintVertical_bias="0.0"/>
 
     <EditText
         android:id="@+id/etmap"
@@ -67,6 +65,7 @@
         android:inputType="textPersonName"
         android:padding="13dp"
         android:textSize="18sp"
+        android:translationZ="8dp"
         app:layout_constraintEnd_toStartOf="@+id/imgbtngps"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mActionBarToolbar1" />
@@ -78,6 +77,7 @@
         android:layout_marginBottom="45dp"
         android:layout_marginStart="32dp"
         android:background="@drawable/btnwhitebckr"
+        android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_polygon" />
@@ -89,6 +89,7 @@
         android:layout_marginBottom="45dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/btngreenbckr"
+        android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_next" />
@@ -100,7 +101,8 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/btnwhitebckr"
         android:padding="5dp"
-        android:translationZ="12dp"
+        android:translationZ="16dp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/etmap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etmap"
@@ -115,6 +117,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/btnwhitebckr"
         android:padding="10dp"
+        android:translationZ="4dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/imgbtnpolygon"
         app:layout_constraintEnd_toEndOf="@+id/imgbtnpolygon"

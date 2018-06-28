@@ -1,4 +1,4 @@
-package m.h.testapp;
+package m.h.testapp.booklist;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+import m.h.testapp.R;
 
 
 public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listViewHolder> {

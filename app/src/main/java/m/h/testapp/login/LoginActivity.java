@@ -1,4 +1,4 @@
-package m.h.testapp;
+package m.h.testapp.login;
 
 
 import android.content.Intent;
@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import m.h.testapp.R;
 import m.h.testapp.retrofit.BASE_URL;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -59,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
              facebookLoginMethod(loginResult.getAccessToken().getToken().toString());
 
+             Log.e("token----",loginResult.getAccessToken().getToken().toString());
                 Toast.makeText(
                         LoginActivity.this,
                         "sucses----",
@@ -97,8 +99,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (!isEmpty(etphone)) {
                     String Phone=etphone.getText().toString();
-                    //phoneLoginMethod(Phone);
-                    startActivity(new Intent(getApplicationContext(),MapActivity.class));
+                    phoneLoginMethod(Phone);
+                    //startActivity(new Intent(getApplicationContext(),MapActivity.class));
 
                 } else {
                     etphone.requestFocus();

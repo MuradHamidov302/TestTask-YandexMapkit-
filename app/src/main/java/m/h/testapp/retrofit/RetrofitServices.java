@@ -16,6 +16,10 @@ public interface RetrofitServices {
     Call<JSONObject> phonelogin(@Field("phone_number") String phone);
 
     @FormUrlEncoded
+    @POST("/account/api/mobile-login/")
+    Call<JSONObject> phoneconfirme(@Field("phone_number") String phone);
+
+    @FormUrlEncoded
     @POST("/social-auth/api/social-login/")
     Call<JSONObject> facebooklogin(@Field("access_token") String token,
                                    @Field("provider") String provider);
