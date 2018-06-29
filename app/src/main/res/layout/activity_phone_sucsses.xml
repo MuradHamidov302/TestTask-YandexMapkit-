@@ -106,9 +106,9 @@
         android:rotation="-75"
         android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="@+id/btnbackLogin"
+        app:layout_constraintStart_toStartOf="@+id/btnbackLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnbackLogin"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -131,7 +131,7 @@
         app:layout_constraintTop_toTopOf="@+id/progressbar" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnbackLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

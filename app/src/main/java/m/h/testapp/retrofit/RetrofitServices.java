@@ -1,28 +1,36 @@
 package m.h.testapp.retrofit;
 
 
-import org.json.JSONObject;
-
+import m.h.testapp.booklist.response.SuccesProfile;
+import m.h.testapp.login.ResponseLogin;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 
 public interface RetrofitServices {
 
+//login--------------BASE_URL-API_LOGIN--http://kuzya.saffman.co.uk--------------------------------------
     @FormUrlEncoded
     @POST("/account/api/code/")
-    Call<JSONObject> phonelogin(@Field("phone_number") String phone);
+    Call<ResponseBody> phonelogin(@Field("phone_number") String phone);
 
     @FormUrlEncoded
     @POST("/account/api/mobile-login/")
-    Call<JSONObject> phoneconfirme(@Field("phone_number") String phone);
+    Call<ResponseLogin> phoneconfirme(@Field("phone_number") String phone , @Field("confirm_code") String confrim);
 
     @FormUrlEncoded
     @POST("/social-auth/api/social-login/")
-    Call<JSONObject> facebooklogin(@Field("access_token") String token,
+    Call<ResponseBody> facebooklogin(@Field("access_token") String token,
                                    @Field("provider") String provider);
+
+//booklist--------------BASE_URL-API_BOOKLIST--http://api.audiokitab.com--------------------------------------
+
+    @GET("/core/api/featured/")
+    Call<SuccesProfile> booklist();
 
 
 }
