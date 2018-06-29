@@ -60,6 +60,23 @@ public class Book {
     @Expose
     private Boolean finishedByViewer;
 
+    public String getAnnotation() {
+        return annotation;
+    }
+
+    @SerializedName("annotation")
+    @Expose
+    private String annotation;
+
+    public String getFile() {
+        return file;
+    }
+
+    @SerializedName("file")
+    @Expose
+
+    private String file;
+
     public Integer getId() {
         return id;
     }

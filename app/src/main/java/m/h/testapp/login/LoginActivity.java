@@ -24,6 +24,7 @@ import com.facebook.login.widget.LoginButton;
 import java.util.Arrays;
 
 import m.h.testapp.R;
+import m.h.testapp.booklist.BookListActivity;
 import m.h.testapp.map.MapActivity;
 import m.h.testapp.retrofit.BASE_URL;
 import okhttp3.ResponseBody;
@@ -36,7 +37,7 @@ import static android.provider.ContactsContract.Intents.Insert.EMAIL;
 public class LoginActivity extends AppCompatActivity {
 
     EditText etphone;
-    ImageButton imgbtnphone, imgbtnfacebook;
+    ImageButton imgbtnphone, imgbtnfacebook,imgbtnbooklist;
     Toolbar mActionBarToolbar;
     LoginButton facebooklogin;
     CallbackManager callbackManager;
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         mActionBarToolbar.setTitle("");
         setSupportActionBar(mActionBarToolbar);
 
-        //click button facebook---------------------------
+        //click button facebook login---------------------------
         imgbtnfacebook=findViewById(R.id.imgbtnfacebook);
         imgbtnfacebook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 facebooklogin.performClick();
             }
         });
-//----------------------------------------------------------------------------------
+//btn click phone login------------------------------------------------
         etphone=findViewById(R.id.etphone);
         imgbtnphone=findViewById(R.id.imgbtnphone);
         imgbtnphone.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                     etphone.setError("empty");
                 }
 
+            }
+        });
+//btn click book list activity open---------------------------------------
+        imgbtnbooklist=findViewById(R.id.imgbtnbooklist);
+        imgbtnbooklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, BookListActivity.class));
             }
         });
 
@@ -171,7 +180,16 @@ private boolean isEmpty(EditText edittext) {
 
                 }else{
                     Toast.makeText(getApplicationContext(),"false",Toast.LENGTH_SHORT).show();
-
+                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                    builder.setMessage("Good Login.\ntoken : "+token+"\nClick Ok go map Activity")
+                            .setCancelable(false)
+                            .setPositiveButton("OK ",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    startActivity(new Intent(getApplicationContext(),MapActivity.class));
+                                }
+                            });
+                    AlertDialog alert=builder.create();
+                    alert.show();
                 }
 
             }

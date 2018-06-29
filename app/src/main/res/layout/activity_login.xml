@@ -127,7 +127,7 @@
         android:background="@drawable/btnwhitebckr"
         android:translationZ="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgbtnempty"
+        app:layout_constraintEnd_toStartOf="@+id/imgbtnbooklist"
         app:srcCompat="@drawable/ic_facebook" />
 
     <com.facebook.login.widget.LoginButton
@@ -141,7 +141,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imgbtnempty"
+        android:id="@+id/imgbtnbooklist"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginEnd="16dp"

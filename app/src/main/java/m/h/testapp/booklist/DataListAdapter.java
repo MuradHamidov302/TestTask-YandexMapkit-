@@ -11,25 +11,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
 import m.h.testapp.R;
+import m.h.testapp.booklist.response.Book;
+import m.h.testapp.booklist.response.MainPhoto;
 
 
 public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listViewHolder> {
 
-    List<JSONObject> datas;
+    List<Book> datas;
     Context context;
     CustomItemClickListener listeners;
 
 
-    public DataListAdapter(Context context, List<JSONObject> data, CustomItemClickListener listener) {
+    public DataListAdapter(Context context, List<Book> data, CustomItemClickListener listener) {
         this.datas = data;
-            this.context=context;
+        this.context=context;
         this.listeners=listener;
     }
 
@@ -54,6 +54,18 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listVi
     @Override
     public void onBindViewHolder(listViewHolder holder, int position) {
 
+        Book item=datas.get(position);
+        holder.postidD=item.getId();
+        holder.tvbookname.setText(item.getName());
+        holder.tvnarrators.setText(item.getAuthors().toString());
+
+        MainPhoto mainPhoto=item.getMainPhoto();
+        final String imgURL = mainPhoto.getThumbnail();
+        new DownLoadImageTask(holder.imgdata).execute(imgURL);
+
+        holder.tvsize_str.setText(item.getSizeStr());
+        holder.tvprice.setText(item.getPrice().toString()+" "+item.getPriceCurrency().toString());
+
 
     }
 
@@ -65,30 +77,18 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listVi
             this.imageView = imageView;
         }
 
-        /*
-            doInBackground(Params... params)
-                Override this method to perform a computation on a background thread.
-         */
         protected Bitmap doInBackground(String...urls){
             String urlOfImage = urls[0];
             Bitmap logo = null;
             try{
                 InputStream is = new URL(urlOfImage).openStream();
-                /*
-                    decodeStream(InputStream is)
-                        Decode an input stream into a bitmap.
-                 */
+
                 logo = BitmapFactory.decodeStream(is);
             }catch(Exception e){ // Catch the download exception
                 e.printStackTrace();
             }
             return logo;
         }
-
-        /*
-            onPostExecute(Result result)
-                Runs on the UI thread after doInBackground(Params...).
-         */
         protected void onPostExecute(Bitmap result){
             imageView.setImageBitmap(result);
         }
@@ -107,16 +107,17 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listVi
     public class listViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         int postidD;
-        TextView location,title,tvtype;
+        TextView tvnarrators,tvbookname,tvsize_str,tvprice;
         ImageView imgdata;
 
         public listViewHolder(View itemView) {
             super(itemView);
 
-            location=itemView.findViewById(R.id.tvlocation);
-            title=itemView.findViewById(R.id.tvtitle);
+            tvnarrators=itemView.findViewById(R.id.tvnarrators);
+            tvbookname=itemView.findViewById(R.id.tvbookname);
             imgdata=itemView.findViewById(R.id.imgdata);
-            tvtype=itemView.findViewById(R.id.tvtype);
+            tvsize_str=itemView.findViewById(R.id.tvsize_str);
+            tvprice=itemView.findViewById(R.id.tvprice);
             itemView.setOnClickListener(this);
         }
 

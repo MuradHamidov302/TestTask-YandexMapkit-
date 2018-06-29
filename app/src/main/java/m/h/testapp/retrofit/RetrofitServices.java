@@ -9,6 +9,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 
 public interface RetrofitServices {
@@ -29,8 +30,8 @@ public interface RetrofitServices {
 
 //booklist--------------BASE_URL-API_BOOKLIST--http://api.audiokitab.com--------------------------------------
 
-    @GET("/core/api/featured/")
-    Call<SuccesProfile> booklist();
+    @GET
+    Call<SuccesProfile> booklist(@Url String url);
 
 
 }
