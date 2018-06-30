@@ -3,10 +3,7 @@ package m.h.testapp.booklist;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,8 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.InputStream;
-import java.net.URL;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import m.h.testapp.R;
@@ -107,8 +105,8 @@ public class DetailFragment extends Fragment {
 
                     MainPhoto mainPhoto= book.getMainPhoto();
 
-                    final String imgURL = (mainPhoto.getFullSize());
-                    new DownLoadImageTask(imgdetailD).execute(imgURL);
+                  final String imgURL = (mainPhoto.getFullSize());
+                    Picasso.with(getContext()).load(imgURL).memoryPolicy(MemoryPolicy.NO_CACHE).into(imgdetailD);
 
                     btnopenfileD.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -141,36 +139,6 @@ public class DetailFragment extends Fragment {
 
     }
     //------------------------------------------------------------------------------------------------------
-
-
-
-    //convert url image class method-------------------------------------------------------
-    private class DownLoadImageTask extends AsyncTask<String,Void,Bitmap> {
-        ImageView imageView;
-
-        public DownLoadImageTask(ImageView imageView){
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String...urls){
-            String urlOfImage = urls[0];
-            Bitmap logo = null;
-            try{
-                InputStream is = new URL(urlOfImage).openStream();
-
-                logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
-                e.printStackTrace();
-            }
-            return logo;
-        }
-
-        protected void onPostExecute(Bitmap result){
-            imageView.setImageBitmap(result);
-        }
-    }
-
-    //------------------------------------------------------------------------
 
 
 

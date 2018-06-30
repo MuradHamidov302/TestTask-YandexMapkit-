@@ -1,9 +1,6 @@
 package m.h.testapp.booklist;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.InputStream;
-import java.net.URL;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import m.h.testapp.R;
@@ -62,41 +60,12 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listVi
 
         MainPhoto mainPhoto=item.getMainPhoto();
         final String imgURL = mainPhoto.getThumbnail();
-        new DownLoadImageTask(holder.imgdata).execute(imgURL);
-
+        Picasso.with(context).load(imgURL).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.imgdata);
         holder.tvsize_str.setText(item.getSizeStr());
         holder.tvprice.setText(item.getPrice().toString()+" "+item.getPriceCurrency().toString());
 
 
     }
-
-    //convert url image class method-------------------------------------------------------
-    private class DownLoadImageTask extends AsyncTask<String,Void,Bitmap> {
-        ImageView imageView;
-
-        public DownLoadImageTask(ImageView imageView){
-            this.imageView = imageView;
-        }
-
-        protected Bitmap doInBackground(String...urls){
-            String urlOfImage = urls[0];
-            Bitmap logo = null;
-            try{
-                InputStream is = new URL(urlOfImage).openStream();
-
-                logo = BitmapFactory.decodeStream(is);
-            }catch(Exception e){ // Catch the download exception
-                e.printStackTrace();
-            }
-            return logo;
-        }
-        protected void onPostExecute(Bitmap result){
-            imageView.setImageBitmap(result);
-        }
-    }
-
-    //------------------------------------------------------------------------
-
 
 
     @Override
