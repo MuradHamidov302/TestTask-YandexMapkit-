@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/root_coordinator"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/mapview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="95dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:orientation="vertical"
+        app:layout_anchorGravity="left|top">
+
+
+        <android.support.v7.widget.SearchView
+            android:id="@+id/sv_search_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/inputbckr"
+            android:maxLines="1" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/suggest_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        app:backgroundTint="@android:color/white"
+        app:layout_anchor="@+id/mapview"
+        app:layout_anchorGravity="right|top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_gps" />
+
+
+    <ImageButton
+        android:id="@+id/imgbtnpolygon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/btnwhitebckr"
+        android:translationZ="4dp"
+        app:layout_anchor="@+id/mapview"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@drawable/ic_polygon" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/btngreenbckr"
+        android:translationZ="4dp"
+        app:layout_anchor="@+id/mapview"
+        app:layout_anchorGravity="right|bottom"
+        app:srcCompat="@drawable/ic_next" />
+
+
+    <ImageButton
+        android:id="@+id/imgbtnrefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="110dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/btnwhitebckr"
+        android:padding="10dp"
+        android:translationZ="4dp"
+        android:visibility="gone"
+        app:layout_anchor="@+id/imgbtnpolygon"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@drawable/ic_refresh" />
+
+</android.support.design.widget.CoordinatorLayout>

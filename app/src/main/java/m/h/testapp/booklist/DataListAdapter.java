@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,4 +133,13 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listVi
         void onItemClick(View v, int position, int postid);
     }
 
+
+    public void addBook(List<Book> books){
+        Log.e("books---size",""+books.size());
+        for (Book book:books){
+            datas.add(book);
+        }
+        notifyDataSetChanged();
+
+    }
 }

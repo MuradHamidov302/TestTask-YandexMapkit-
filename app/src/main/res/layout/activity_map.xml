@@ -41,87 +41,10 @@
             tools:layout_editor_absoluteY="19dp" />
     </android.support.v7.widget.Toolbar>
 
-    <com.yandex.mapkit.mapview.MapView
-        android:id="@+id/mapview"
+
+    <FrameLayout
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mActionBarToolbar1"
-        app:layout_constraintVertical_bias="0.0"/>
-
-    <EditText
-        android:id="@+id/etmap"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/inputbckr"
-        android:ems="10"
-        android:hint="Введите адрес"
-        android:inputType="textPersonName"
-        android:padding="13dp"
-        android:textSize="18sp"
-        android:translationZ="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/imgbtngps"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mActionBarToolbar1" />
-
-    <ImageButton
-        android:id="@+id/imgbtnpolygon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:layout_marginStart="32dp"
-        android:background="@drawable/btnwhitebckr"
-        android:translationZ="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_polygon" />
-
-    <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/btngreenbckr"
-        android:translationZ="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_next" />
-
-    <ImageButton
-        android:id="@+id/imgbtngps"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/btnwhitebckr"
-        android:padding="5dp"
-        android:translationZ="16dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/etmap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/etmap"
-        app:srcCompat="@drawable/ic_gps" />
-
-    <ImageButton
-        android:id="@+id/imgbtnrefresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/btnwhitebckr"
-        android:padding="10dp"
-        android:translationZ="4dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/imgbtnpolygon"
-        app:layout_constraintEnd_toEndOf="@+id/imgbtnpolygon"
-        app:layout_constraintStart_toStartOf="@+id/imgbtnpolygon"
-        app:srcCompat="@drawable/ic_refresh" />
+        android:layout_height="match_parent" />
 
 </android.support.constraint.ConstraintLayout>
