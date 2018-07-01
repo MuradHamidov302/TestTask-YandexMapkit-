@@ -49,8 +49,10 @@
                     <ImageView
                         android:id="@+id/imgdetailD"
                         android:layout_width="match_parent"
-                        android:layout_height="233dp"
-                        android:scaleType="centerCrop"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:cropToPadding="false"
+                        android:scaleType="fitXY"
                         app:srcCompat="@color/colorGray"
                         tools:layout_editor_absoluteX="0dp"
                         tools:layout_editor_absoluteY="0dp" />

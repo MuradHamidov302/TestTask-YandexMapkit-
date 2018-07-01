@@ -39,7 +39,7 @@ public class DataListFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     ProgressBar progressBar;
     boolean isLoading=false;
-    int lasttotal=0;
+    int lasttotal=10;
 
     public DataListFragment() {
         // Required empty public constructor
@@ -120,7 +120,7 @@ public class DataListFragment extends Fragment {
                         isLoading = false;
                     }
 
-                    if (!isLoading&&lastvisibleitemposition>totalitem-2 ) {
+                    if (!isLoading&&lastvisibleitemposition>=totalitem-1 ) {
                        isLoading = true;
                        performPagination(pagenext);
                     }
@@ -136,7 +136,7 @@ public class DataListFragment extends Fragment {
     public  void performPagination(String page){
         progressBar.setVisibility(View.VISIBLE);
         Call<SuccesProfile> call = BASE_URL.retrofitServicesBooklist.booklist(page);
-        Log.w("request l", call.request().toString());
+        Log.w("request lp", call.request().toString());
         call.enqueue(new Callback<SuccesProfile>()
         {
             @Override
