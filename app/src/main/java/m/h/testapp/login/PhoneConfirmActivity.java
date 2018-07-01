@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PhoneSucssesActivity extends AppCompatActivity {
+public class PhoneConfirmActivity extends AppCompatActivity {
 
     Button btnconfirm;
     ProgressBar progressBar;
@@ -116,7 +116,7 @@ public class PhoneSucssesActivity extends AppCompatActivity {
 
     private void LoginConfirmMethod(String phoneNum,String confirmCode) {
 
-        progressDialog = new ProgressDialog(PhoneSucssesActivity.this);
+        progressDialog = new ProgressDialog(PhoneConfirmActivity.this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
@@ -134,7 +134,7 @@ public class PhoneSucssesActivity extends AppCompatActivity {
                     ResponseLogin responseLogin=response.body();
                     Toast.makeText(getApplicationContext(),"true",Toast.LENGTH_SHORT).show();
                     String token=responseLogin.getToken();
-                        AlertDialog.Builder builder = new AlertDialog.Builder(PhoneSucssesActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(PhoneConfirmActivity.this);
                         builder.setMessage("Good Login.\ntoken : "+token+"\nClick Ok go map Activity")
                                 .setCancelable(false)
                                 .setPositiveButton("OK ",new DialogInterface.OnClickListener() {

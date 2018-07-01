@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -60,10 +59,9 @@ public class DataListAdapter extends RecyclerView.Adapter<DataListAdapter.listVi
 
         MainPhoto mainPhoto=item.getMainPhoto();
         final String imgURL = mainPhoto.getThumbnail();
-        Picasso.with(context).load(imgURL).memoryPolicy(MemoryPolicy.NO_CACHE).into(holder.imgdata);
+        Picasso.with(context).load(imgURL).into(holder.imgdata);
         holder.tvsize_str.setText(item.getSizeStr());
         holder.tvprice.setText(item.getPrice().toString()+" "+item.getPriceCurrency().toString());
-
 
     }
 

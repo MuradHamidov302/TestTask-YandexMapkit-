@@ -129,7 +129,7 @@ private boolean isEmpty(EditText edittext) {
                 if (response.isSuccessful()) {
                     ResponseBody userResponse = response.body();
                     Toast.makeText(getApplicationContext(),"true",Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(getApplicationContext(),PhoneSucssesActivity.class);
+                    Intent i = new Intent(getApplicationContext(),PhoneConfirmActivity.class);
                     i.putExtra("phone", phone);;
                     startActivity(i);
                 }else{

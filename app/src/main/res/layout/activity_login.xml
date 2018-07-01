@@ -57,7 +57,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view3"
-        app:srcCompat="@drawable/loginbckr" />
+        app:srcCompat="@drawable/back" />
 
     <EditText
         android:id="@+id/etphone"

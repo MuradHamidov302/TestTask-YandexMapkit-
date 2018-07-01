@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme">
         <activity
             android:name=".login.LoginActivity"
@@ -23,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".login.PhoneSucssesActivity"
+            android:name=".login.PhoneConfirmActivity"
             android:screenOrientation="portrait" />
 
         <meta-data

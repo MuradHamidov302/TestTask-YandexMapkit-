@@ -67,6 +67,9 @@ public class DetailFragment extends Fragment {
 
 
         DetailRequestMethod(itemid);
+
+
+
         return v;
     }
 
