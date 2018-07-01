@@ -1,6 +1,5 @@
 package m.h.testapp.map;
 
-
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
@@ -14,7 +13,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.util.TypedValue;
@@ -25,11 +23,9 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.yandex.mapkit.Animation;
-import com.yandex.mapkit.GeoObject;
 import com.yandex.mapkit.GeoObjectCollection;
 import com.yandex.mapkit.MapKitFactory;
 import com.yandex.mapkit.ScreenPoint;
-import com.yandex.mapkit.geometry.BoundingBox;
 import com.yandex.mapkit.geometry.Geometry;
 import com.yandex.mapkit.geometry.Point;
 import com.yandex.mapkit.layers.ObjectEvent;
@@ -37,10 +33,7 @@ import com.yandex.mapkit.location.Location;
 import com.yandex.mapkit.location.LocationListener;
 import com.yandex.mapkit.location.LocationManager;
 import com.yandex.mapkit.location.LocationStatus;
-import com.yandex.mapkit.map.CameraListener;
 import com.yandex.mapkit.map.CameraPosition;
-import com.yandex.mapkit.map.CameraUpdateSource;
-import com.yandex.mapkit.map.Map;
 import com.yandex.mapkit.mapview.MapView;
 import com.yandex.mapkit.search.Response;
 import com.yandex.mapkit.search.SearchManager;
@@ -48,15 +41,11 @@ import com.yandex.mapkit.search.SearchManagerType;
 import com.yandex.mapkit.search.SearchOptions;
 import com.yandex.mapkit.search.SearchType;
 import com.yandex.mapkit.search.Session;
-import com.yandex.mapkit.search.SuggestItem;
 import com.yandex.mapkit.user_location.UserLocationLayer;
 import com.yandex.mapkit.user_location.UserLocationObjectListener;
 import com.yandex.mapkit.user_location.UserLocationView;
 import com.yandex.runtime.Error;
 import com.yandex.runtime.image.ImageProvider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,54 +53,33 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import m.h.testapp.R;
 
-
 public class MapFragment extends Fragment implements UserLocationObjectListener {
 
-    ImageButton imgbtngps,imgbtnpolygon,imgbtnrefresh;
+    ImageButton imgbtnpolygon,imgbtnrefresh;
 
     private static final String TAG = MapFragment.class.getSimpleName();
     private Unbinder unbinder;
     private static final int PERMISSIONS_CODE = 109;
-
     private static final double DESIRED_ACCURACY = 0;
     private static final long MINIMAL_TIME = 0;
     private static final double MINIMAL_DISTANCE = 50;
     private static final boolean USE_IN_BACKGROUND = false;
 
-    private Session.SearchListener mSearchAddressListener;
-    private Session.SearchListener mSearchPointListener;
+ private Session.SearchListener mSearchPointListener;
     private LocationListener myLocationListener;
-    private SearchManager.SuggestListener suggestListener;
-    private CameraListener cameraListener;
 
-    public static final int COMFORTABLE_ZOOM_LEVEL = 18;//если уровень будет ниже, получить улицу с номером дома не получится
-    private static final float START_ZOOM_LEVEL = 14.0f;
-
+    public static final int COMFORTABLE_ZOOM_LEVEL = 9;
     private static final Point START_LOCATION = new Point(53.35, 83.76);
-    private final double BOX_SIZE = 0.2;
-    private final BoundingBox BOUNDING_BOX = new BoundingBox(
-            new Point(START_LOCATION.getLatitude() - BOX_SIZE, START_LOCATION.getLongitude() - BOX_SIZE),
-            new Point(START_LOCATION.getLatitude() + BOX_SIZE, START_LOCATION.getLongitude() + BOX_SIZE));
-    private final int RESULT_NUMBER_LIMIT = 5;
     private final SearchOptions SEARCH_OPTIONS = new SearchOptions().setSearchTypes(
             SearchType.GEO.value);
 
     private Session searchSession;
     private SearchManager searchManager;
-
     private boolean isUseSuggestions;
-
-    private QueryHelper queryHelper;
-    private RegionHelper regionHelper;
     private Point myLocation;
-
-    private ScreenPoint centerPointOfScreen;
-
+   private ScreenPoint centerPointOfScreen;
     private LocationManager locationManager;
-    private SuggestAdapter suggestAdapter;
 
-    @BindView(R.id.suggest_recycler_view)
-    RecyclerView suggestResultView;
     @BindView(R.id.mapview)
     MapView mapView;
     @BindView(R.id.sv_search_address)
@@ -124,8 +92,6 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        queryHelper = new QueryHelper(getString(R.string.region_and_town), getString(R.string.region));
-        regionHelper = new RegionHelper();
 
         mSearchPointListener = new Session.SearchListener() {
             @Override
@@ -147,36 +113,10 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
             }
         };
 
-        mSearchAddressListener = new Session.SearchListener() {
-            @Override
-            public void onSearchResponse(Response response) {
-                for (GeoObjectCollection.Item searchResult : response.getCollection().getChildren()) {
-                    GeoObject resultObj = searchResult.getObj();
-
-                    if (resultObj != null && resultObj.getName() != null) {
-                        isUseSuggestions = false;
-                        svSearchAddress.setQuery(resultObj.getName(), false);
-                        if (svSearchAddress.isIconified()) {
-                            svSearchAddress.setIconified(false);
-                            svSearchAddress.clearFocus();
-                        }
-                        break;
-                    }
-                }
-            }
-
-            @Override
-            public void onSearchError(Error error) {
-                Log.w(TAG, "onSearchError ERROR when try search address by point");
-                Toast.makeText(getContext(), R.string.error_cant_get_address, Toast.LENGTH_SHORT).show();
-            }
-        };
-
         myLocationListener = new LocationListener() {
             @Override
             public void onLocationUpdated(Location location) {
                 if (myLocation == null) {
-                    addiconlocation();
                     moveCamera(location.getPosition(), COMFORTABLE_ZOOM_LEVEL);
                 }
                 myLocation = location.getPosition();
@@ -190,43 +130,6 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
                 }
             }
         };
-
-        suggestListener = new SearchManager.SuggestListener() {
-            @Override
-            public void onSuggestResponse(List<SuggestItem> list) {
-                List<String> suggestResult = new ArrayList<>();
-                for (int i = 0; i < Math.min(RESULT_NUMBER_LIMIT, list.size()); i++) {
-                    String changedResult = queryHelper.cutResultQuery(list.get(i).getDisplayText());
-                    if (changedResult != null) {
-                        suggestResult.add(changedResult);
-                    }
-                }
-                if (svSearchAddress.getQuery().length() != 0) {
-                    suggestResultView.setVisibility(View.VISIBLE);
-                    suggestAdapter.updateData(suggestResult);
-                }
-            }
-
-            @Override
-            public void onSuggestError(Error error) {
-                Log.w(TAG, "error on onSuggestResponse");
-                Toast.makeText(getContext(), R.string.error_cant_get_suggestions, Toast.LENGTH_SHORT).show();
-            }
-        };
-
-        cameraListener = new CameraListener() {
-            @Override
-            public void onCameraPositionChanged(Map map, CameraPosition cameraPosition,
-                                                CameraUpdateSource cameraUpdateSource, boolean b) {
-                if (b) {
-                    Point centerOfScreen = mapView.screenToWorld(centerPointOfScreen);
-                    requestAddress(centerOfScreen);
-                }
-            }
-        };
-
-
-
     }
 
     @Nullable
@@ -236,17 +139,13 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
         unbinder = ButterKnife.bind(this, view);
 
         searchManager = MapKitFactory.getInstance().createSearchManager(SearchManagerType.COMBINED);
-        prepareSearchView();
+       prepareSearchView();
 
         locationManager = MapKitFactory.getInstance().createLocationManager();
 
-        setupSuggestionRecyclerView();
-
         setupCenterPointOfScreen();
-        mapView.getMap().addCameraListener(cameraListener);
 
         addiconlocation();
-
 
         //btn polygon-----------------------------------------------------------
         imgbtnrefresh=view.findViewById(R.id.imgbtnrefresh);
@@ -267,7 +166,6 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
             }
         });
         //------------------------------------------------------------------------------
-
 
         return view;
     }
@@ -293,7 +191,6 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
         if (svSearchAddress != null) {
             svSearchAddress.clearFocus();
         }
-
     }
 
     @Override
@@ -340,8 +237,7 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
             Toast.makeText(getContext(), R.string.coordinates_are_not_yet_determinate,Toast.LENGTH_SHORT).show();
             return;
         }
-        addiconlocation();
-        moveCamera(myLocation, COMFORTABLE_ZOOM_LEVEL);
+        moveCamera(myLocation, 18);
     }
 
     void addiconlocation(){
@@ -356,7 +252,6 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
         userLocationLayer.setAnchor(
                 new PointF((float)(mapView.getWidth() * 0.5), (float)(mapView.getHeight() * 0.5)),
                 new PointF((float)(mapView.getWidth() * 0.5), (float)(mapView.getHeight() * 0.83)));
-
         userLocationView.getPin().setIcon(ImageProvider.fromResource(
                 getContext(), R.drawable.user_arrow));
         userLocationView.getArrow().setIcon(ImageProvider.fromResource(
@@ -366,12 +261,10 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
 
     @Override
     public void onObjectRemoved(UserLocationView userLocationView) {
-
     }
 
     @Override
     public void onObjectUpdated(UserLocationView userLocationView, ObjectEvent objectEvent) {
-
     }
 
     private boolean canDetermineLocation() {
@@ -384,16 +277,7 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
                 query,
                 Geometry.fromPoint(START_LOCATION),
                 SEARCH_OPTIONS,
-                mSearchPointListener);
-    }
-
-    private void requestAddress(Point point) {
-        searchSession = searchManager.submit(
-                point,
-                COMFORTABLE_ZOOM_LEVEL,
-                SEARCH_OPTIONS,
-                mSearchAddressListener
-        );
+               mSearchPointListener);
     }
 
     private void prepareSearchView() {
@@ -401,22 +285,16 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
         svSearchAddress.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                suggestResultView.setVisibility(View.GONE);
                 fabCurrentLocation.show();
-                requestGeoPoint(svSearchAddress.getQuery().toString());
+               requestGeoPoint(svSearchAddress.getQuery().toString());
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 if (newText.equals("")) {
-                    suggestResultView.setVisibility(View.GONE);
                     fabCurrentLocation.show();
                     isUseSuggestions = true;
                     return false;
-                }
-                if (isUseSuggestions) {
-                    requestSuggest(queryHelper.getQueryWithRegion(newText));
                 }
                 isUseSuggestions = true;
                 return false;
@@ -436,25 +314,6 @@ public class MapFragment extends Fragment implements UserLocationObjectListener 
             locationManager.subscribeForLocationUpdates(DESIRED_ACCURACY, MINIMAL_TIME, MINIMAL_DISTANCE, USE_IN_BACKGROUND, myLocationListener);
         }
     }
-
-    private void requestSuggest(String query) {
-        fabCurrentLocation.hide();
-        searchManager.suggest(query, BOUNDING_BOX, SEARCH_OPTIONS, suggestListener);
-    }
-
-    private void setupSuggestionRecyclerView() {
-        suggestAdapter = new SuggestAdapter(new SuggestAdapter.OnSuggestClickListener() {
-            @Override
-            public void onSuggestionClick(String suggestionStr) {
-                isUseSuggestions = false;
-                svSearchAddress.setQuery(suggestionStr, false);
-                suggestResultView.setVisibility(View.GONE);
-                fabCurrentLocation.show();
-            }
-        });
-        suggestResultView.setAdapter(suggestAdapter);
-    }
-
     private void setupCenterPointOfScreen() {
         int actionBarHeight = calculateActionBarHeight();
         int mWidth = this.getResources().getDisplayMetrics().widthPixels;

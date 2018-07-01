@@ -12,33 +12,18 @@
         android:layout_height="match_parent" />
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="95dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_anchorGravity="left|top">
-
 
         <android.support.v7.widget.SearchView
             android:id="@+id/sv_search_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/inputbckr"
+            android:layout_marginEnd="95dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            app:layout_anchorGravity="left|top"
             android:maxLines="1" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/suggest_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
-    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_current_location"
